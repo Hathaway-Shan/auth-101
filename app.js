@@ -1,5 +1,6 @@
 // import services and utilities
 // *** import needed service methods
+import { getUser, signIn, signUp } from './services/members-service.js';
 
 // import component creators
 import createAuthForm from './components/AuthForm.js';
@@ -10,43 +11,42 @@ let errorMessage = '';
 // write handler functions
 async function handlePageLoad() {
     // *** get the user
-
+    const user = await getUser();
     // *** if there is a user, redirect (use replace) to './members'
-
+    if (user) {
+        location.replace('./members');
+        return;
+    }
     display();
 }
 
 async function handleSignIn(email, password) {
-    // *** remove next line after verifying credentials are working
-    console.log(email, password);
+    const response = await signIn(email, password);
 
-    const response = null; // *** ? (don't forget call is asynchronous!)
+    // *** ? (don't forget call is asynchronous!)
     checkAuth(response);
 }
 
 async function handleSignUp(email, password) {
-    // *** remove next line after verifying credentials are working
-    console.log(email, password);
+    const response = await signUp(email, password);
 
-    const response = null; // *** ? (don't forget call is asynchronous!)
     checkAuth(response);
 }
 
 function checkAuth(response) {
-    // *** remove next line after verifying user is being returned
-    console.log(response.user);
 
     if (response?.error) {
-        // *** 
         // 1. console.log the response.error
-        // 2. set the errorMessage state from response.error.message
         // (keep this line👇 before console.log)
         // eslint-disable-next-line no-console
-
+        console.log(response.error);
+        // 2. set the errorMessage state from response.error.message
+        errorMessage = response.error.message;
         display();
     }
     else {
         // *** redirect (use replace) to './members'
+        location.replace('./members');
     }
 }
 
