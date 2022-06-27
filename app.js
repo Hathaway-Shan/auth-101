@@ -17,7 +17,6 @@ async function handlePageLoad() {
         location.replace('./members');
         return;
     }
-
     display();
 }
 
@@ -35,8 +34,6 @@ async function handleSignUp(email, password) {
 }
 
 function checkAuth(response) {
-    // *** remove next line after verifying user is being returned
-    console.log(response.user);
 
     if (response?.error) {
         // 1. console.log the response.error

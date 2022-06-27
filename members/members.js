@@ -11,8 +11,8 @@ async function handlePageLoad() {
     // *** get the user
     user = await getUser();
     // *** if there is a **not** user, redirect (use replace) to '../'
-    if (user === null) {
-        window.location.reload('../');
+    if (!user) {
+        window.location.replace('../');
         return;
     }
 
