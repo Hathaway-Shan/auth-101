@@ -22,19 +22,15 @@ async function handlePageLoad() {
 }
 
 async function handleSignIn(email, password) {
-    // *** remove next line after verifying credentials are working
     const response = await signIn(email, password);
-    console.log(email, password);
 
     // *** ? (don't forget call is asynchronous!)
     checkAuth(response);
 }
 
 async function handleSignUp(email, password) {
-    // *** remove next line after verifying credentials are working
-    console.log(email, password);
+    const response = await signUp(email, password);
 
-    const response = null; // *** ? (don't forget call is asynchronous!)
     checkAuth(response);
 }
 
@@ -43,16 +39,17 @@ function checkAuth(response) {
     console.log(response.user);
 
     if (response?.error) {
-        // *** 
         // 1. console.log the response.error
-        // 2. set the errorMessage state from response.error.message
         // (keep this line👇 before console.log)
         // eslint-disable-next-line no-console
-
+        console.log(response.error);
+        // 2. set the errorMessage state from response.error.message
+        errorMessage = response.error.message;
         display();
     }
     else {
         // *** redirect (use replace) to './members'
+        location.replace('./members');
     }
 }
 
